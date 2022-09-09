@@ -1,24 +1,64 @@
-import logo from './logo.svg';
-import './App.css';
+import store from './redux/store'; 
+import Home from "./screens/Home";
+import "antd/dist/antd.css" 
+import Cart from "./screens/Cart";
+import { useDispatch, useSelector } from 'react-redux';
+import FilterMaster from './components/filter/FilterMaster';
+import { getAllCategories } from './apiCall';
+import { updateCategoryFilter } from './redux/filter/filterActions';
+import { useEffect } from 'react';
+import SearchFilter from './components/filter/SearchFilter';
+import RecentlyViewed from './components/RecentlyViewed';
+import Navbar from './components/Navbar';
 
 function App() {
+  const dispatch = useDispatch()
+  const recentlyViewed = useSelector(state => state.recentlyViewed.products);
+
+
+  useEffect(()=>{
+    let categories = [];
+    const helperFunction = async () => {
+      try{
+        const res = await getAllCategories();
+        console.log(res.data);
+        res?.data.forEach((item)=>{
+            categories.push({category_name: item, is_selected : false})
+        })
+        dispatch(updateCategoryFilter(categories));
+      }
+      catch(err){
+        console.log(err)
+      }
+    }
+    helperFunction();
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div style={{backgroundColor:"#F5F5F5"}} className="App">
+        <div style={{display:"flex",justifyContent:"space-around"}}>
+          <Navbar/>
+        </div>
+       <div style={{display:"flex",justifyContent:"space-around"}}>
+          <div>
+            <h2 style={{margin:"10px",marginTop:"20px"}}>Apply Filter</h2>
+            <FilterMaster/>
+            {
+              recentlyViewed?.length > 0 &&
+              <>
+                <h2 style={{margin:"10px",marginTop:"20px"}}>Recently Viewed</h2>
+                <RecentlyViewed/>
+              </>
+            }
+            
+          </div>
+          <div><Home/></div>
+       </div> 
+        
+        {/* CART PRODUCTS
+        <Cart/> */}
+        {}
+      </div>
   );
 }
 
