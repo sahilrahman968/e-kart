@@ -84,10 +84,10 @@ function FilterMaster() {
     <div>
       <div style={{margin:"20px",height:"20vh" ,display:"flex", justifyContent:"flex-start"}}>
         <div style={{marginRight:"20px"}} className='left'>
-          <h3 style={{backgroundColor : activeFilter === "category"?"#F5FFFA":""}} onClick={()=>{activeFilterHandler("category")}}>Category</h3>
-          <h3 style={{backgroundColor : activeFilter === "price"?"#F5FFFA":""}} onClick={()=>{activeFilterHandler("price")}}>Price</h3>
+          <h3 style={{backgroundColor : activeFilter === "category"?"#B0C4DE":""}} onClick={()=>{activeFilterHandler("category")}}>Category</h3>
+          <h3 style={{backgroundColor : activeFilter === "price"?"#B0C4DE":""}} onClick={()=>{activeFilterHandler("price")}}>Price</h3>
         </div>
-        <div className='right' style={{paddingLeft:"20px",backgroundColor:"#F5FFFA",width:"200px"}}>
+        <div className='right' style={{paddingLeft:"20px",backgroundColor:"#B0C4DE",width:"200px"}}>
           {
             activeFilter === "category" ? <CategoryFilter getSelectedCategoryFilter={getSelectedCategoryFilter}/> :
             activeFilter === "price" ? <PriceFilter getSelectedPriceFilter={getSelectedPriceFilter}/> : "" 

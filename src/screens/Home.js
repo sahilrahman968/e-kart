@@ -74,7 +74,7 @@ function Home() {
   return (
     <div>
       {
-        productsState.loading ? <><Spin/></> :
+        productsState.loading ? <div style={{display:"flex",justifyContent:"center",margin:"20px"}}><Spin/></div> :
         products.length ? 
         <div style={{
           display: "flex",

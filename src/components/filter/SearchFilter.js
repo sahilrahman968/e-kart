@@ -15,6 +15,7 @@ const SearchFilter = () => {
   const [options, setOptions] = useState([]);
   const [showModal,setShowModal] = useState(false)
   const [selectedProduct , setSelectedProduct] = useState({})
+//   const [value,setValue] = useState("")/*  */
   const recentlyViewed = useSelector(state => state.recentlyViewed.products);
 
 
@@ -32,6 +33,7 @@ const SearchFilter = () => {
     console.log('onSelect', selectedProduct);
     setSelectedProduct(selectedProduct)
     addToRecentlyViewed(selectedProduct)
+    setValue("")
 };
 
   const onChange = (data) => {
@@ -57,7 +59,9 @@ const SearchFilter = () => {
         }}
         onSelect={onSelect}
         onSearch={onSearch}
-        placeholder="input here"
+        onChange={onChange}
+        placeholder="search for products"
+        value={value}
       />
       {
         showModal&& <ProductModal product={selectedProduct} setShowModal={setShowModal} showmodal={showModal}/>

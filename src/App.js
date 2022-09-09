@@ -35,12 +35,12 @@ function App() {
   },[])
 
   return (
-      <div style={{backgroundColor:"#F5F5F5"}} className="App">
+      <div style={{backgroundColor:"#F5F5F5",width:"100%",height:"100%"}} className="App">
         <div style={{display:"flex",justifyContent:"space-around"}}>
           <Navbar/>
         </div>
        <div style={{display:"flex",justifyContent:"space-around"}}>
-          <div>
+          <div style={{width:"20vw"}}>
             <h2 style={{margin:"10px",marginTop:"20px"}}>Apply Filter</h2>
             <FilterMaster/>
             {
@@ -52,7 +52,7 @@ function App() {
             }
             
           </div>
-          <div><Home/></div>
+          <div style={{width:"80vw"}}><Home/></div>
        </div> 
         
         {/* CART PRODUCTS

@@ -7,13 +7,14 @@ const UpcomingCard = ({url,title,description,price,product}) => (
   <Card
     hoverable
     style={{
-      width: 240,
+      width: 300,
+      height:550,
       padding: "20px",
       margin: "20px"
     }}
-    cover={<img alt="example" src={url}/>}
+    cover={<img style={{height:"300px"}} alt="example" src={url}/>}
   >
-    <Meta title={title} description={description} price={price} />
+    <Meta title={title} description={`${description.substring(0,100)}...`} price={price} />
     <h2>${price}</h2>
     <div style={{display:"flex",justifyContent:"flex-end"}}>
       <Button>like</Button>
