@@ -17,8 +17,11 @@ const UpcomingCard = ({url,title,description,price,product}) => (
     <Meta title={title} description={`${description.substring(0,100)}...`} price={price} />
     <h2>${price}</h2>
     <div style={{display:"flex",justifyContent:"flex-end"}}>
-      <Button>like</Button>
-      <Button onClick={()=>{selectCartAction(product)}}>cart</Button>
+      <Button>Add to wishlist</Button>
+      <Button onClick={(e)=>{
+        selectCartAction(product)
+        e.stopPropagation();
+      }}>Add to cart</Button>
     </div>
   </Card>
 );

@@ -7,6 +7,8 @@ import {Spin} from "antd"
 import _ from "lodash"
 import ProductModal from "../components/ProductModal"
 import { updateRecentlyViewed } from "../redux/recentlyViewed/recentlyViewedAction"
+import FilterMaster from "../components/filter/FilterMaster"
+import RecentlyViewed from "../components/RecentlyViewed"
 
 function Home() {
   const dispatch = useDispatch();
@@ -72,35 +74,48 @@ function Home() {
   }
 
   return (
-    <div>
-      {
-        productsState.loading ? <div style={{display:"flex",justifyContent:"center",margin:"20px"}}><Spin/></div> :
-        products.length ? 
-        <div style={{
-          display: "flex",
-          justifyContent: "space-around",
-          flexWrap: "wrap"
-        }}
-        
-    >
-        {
-          products.map((product)=>{
-            return <>
-              <div onClick={()=>{
-                setShowModal(true);
-                setSelectedProduct(product) 
-                addToRecentlyViewed(product);
-                }}>
-                <ProductCard url={product?.image} title={product.title} description={product?.description} price={product?.price} product={product}/>
-              </div>
-            </>
-          })
-        }
-        </div>:"SOMETHING WENT WRONG"
-      }
-      {
-        showModal&& <ProductModal product={selectedProduct} setShowModal={setShowModal} showmodal={showModal}/>
-      } 
+    <div style={{display:"flex",justifyContent:"space-around"}}>
+        <div style={{width:"20vw"}}>
+          <h2 style={{margin:"10px",marginTop:"20px"}}>Apply Filter</h2>
+          <FilterMaster/>
+          {
+            recentlyViewed?.length > 0 &&
+            <div style={{margin:"20px"}}>
+              <h2 style={{margin:"10px",marginTop:"20px"}}>Recently Viewed</h2>
+              <RecentlyViewed/>
+            </div>
+          }
+        </div>  
+        <div>
+          {
+            productsState.loading ? <div style={{display:"flex",justifyContent:"center",margin:"20px"}}><Spin/></div> :
+            products.length ? 
+            <div style={{
+              display: "flex",
+              justifyContent: "space-around",
+              flexWrap: "wrap"
+            }}
+            
+        >
+            {
+              products.map((product)=>{
+                return <>
+                  <div onClick={()=>{
+                    setShowModal(true);
+                    setSelectedProduct(product) 
+                    addToRecentlyViewed(product);
+                    }}>
+                    <ProductCard url={product?.image} title={product.title} description={product?.description} price={product?.price} product={product}/>
+                  </div>
+                </>
+              })
+            }
+            </div>:"SOMETHING WENT WRONG"
+          }
+          {
+            showModal&& <ProductModal product={selectedProduct} setShowModal={setShowModal} showmodal={showModal}/>
+          } 
+        </div>
     </div>
   )
 }

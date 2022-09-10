@@ -20,11 +20,8 @@ export const removeFromCart = (products) => {
 
 
 export const selectCartAction = (item) => {
-    console.log("id=",item)
-    console.log("id=",store.getState()?.cartProducts?.cartProducts)
     let cartProducts = store.getState()?.cartProducts?.cartProducts;
     const index = cartProducts.findIndex(e => e?.id == item?.id)
-    console.log(cartProducts.findIndex(e => e?.id == item?.id)/* .filter(product => product?.id === item?.id).length */)
     if(index == -1){
         cartProducts.push(item);
         store.dispatch(addToCart(cartProducts));   

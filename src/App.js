@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import SearchFilter from './components/filter/SearchFilter';
 import RecentlyViewed from './components/RecentlyViewed';
 import Navbar from './components/Navbar';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch()
@@ -35,30 +36,17 @@ function App() {
   },[])
 
   return (
+    <BrowserRouter>
       <div style={{backgroundColor:"#F5F5F5",width:"100%",height:"100%"}} className="App">
         <div style={{display:"flex",justifyContent:"space-around"}}>
           <Navbar/>
         </div>
-       <div style={{display:"flex",justifyContent:"space-around"}}>
-          <div style={{width:"20vw"}}>
-            <h2 style={{margin:"10px",marginTop:"20px"}}>Apply Filter</h2>
-            <FilterMaster/>
-            {
-              recentlyViewed?.length > 0 &&
-              <>
-                <h2 style={{margin:"10px",marginTop:"20px"}}>Recently Viewed</h2>
-                <RecentlyViewed/>
-              </>
-            }
-            
-          </div>
-          <div style={{width:"80vw"}}><Home/></div>
-       </div> 
-        
-        {/* CART PRODUCTS
-        <Cart/> */}
-        {}
-      </div>
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/cart" element={<Cart/>}/> 
+          </Routes>
+        </div>
+     </BrowserRouter>  
   );
 }
 

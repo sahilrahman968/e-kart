@@ -1,6 +1,8 @@
 import React,{useEffect,useState} from "react"
 import {useSelector} from "react-redux"
-import ProductCard from "../components/ProductCard"
+import CartProductCard from "../components/CartProductCard"
+import { selectCartAction } from '../redux/cartProducts/cartProductActions';
+import {Checkbox, Button} from 'antd';
 
 function Cart() {
     
@@ -19,17 +21,23 @@ function Cart() {
         cart.length ? 
         <div style={{
           display: "flex",
-          justifyContent: "space-around",
-          flexWrap: "wrap"
-        }}
-        
+          justifyContent: "center",
+          alignItems : "center",
+          flexDirection : "column"
+        }}   
     >
         {
           cart.map((product)=>{
-            return <ProductCard url={product?.image} title={product.title} description={product?.description} price={product?.price} product={product}/>
+            return (
+            <div style={{display:"flex", justifyContent:"center",alignItems:"center"}}>
+              <Checkbox>
+                <CartProductCard url={product?.image} title={product.title} description={product?.description} price={product?.price} product={product}/>
+                <Button onClick={()=>{selectCartAction(product)}}>Remove from cart</Button> 
+              </Checkbox>
+            </div>)
           })
         }
-        </div>:"NO PRODUCTS IN CART"
+        </div>:<h1>CART EMPTY</h1>
       }
     </div>
   )
