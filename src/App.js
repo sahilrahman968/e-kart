@@ -2,6 +2,7 @@ import store from './redux/store';
 import Home from "./screens/Home";
 import "antd/dist/antd.css" 
 import Cart from "./screens/Cart";
+import Wishlist from "./screens/Wishlist";
 import { useDispatch, useSelector } from 'react-redux';
 import FilterMaster from './components/filter/FilterMaster';
 import { getAllCategories } from './apiCall';
@@ -44,6 +45,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/cart" element={<Cart/>}/> 
+            <Route path="/wishlist" element={<Wishlist/>}/> 
           </Routes>
         </div>
      </BrowserRouter>  

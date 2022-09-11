@@ -2,6 +2,7 @@ import { Button, Card } from 'antd';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCartAction } from '../redux/cartProducts/cartProductActions';
+import { selectLikedAction } from '../redux/ikedProducts/likedProductActions';
 const { Meta } = Card;
 
 const UpcomingCard = ({url,title,description,price,product}) => {
@@ -9,9 +10,11 @@ const UpcomingCard = ({url,title,description,price,product}) => {
   const [dummy, setDummy] = useState(false);
 
   const cartProducts = useSelector(state => state.cartProducts.cartProducts)
+  const likedProducts = useSelector(state => state.likedProducts.likedProducts)
 
-  const checkPresent = () => {
-    let present = cartProducts.find( e => e.id === product.id)
+
+  const checkPresent = (a) => {
+    let present = a.find( e => e.id === product.id)
     return present;
   }
 
@@ -29,12 +32,18 @@ const UpcomingCard = ({url,title,description,price,product}) => {
     <Meta title={title} description={`${description.substring(0,100)}...`} price={price} />
     <h2>${price}</h2>
     <div style={{display:"flex",justifyContent:"flex-end"}}>
-      <Button>Add to wishlist</Button>
+      
+      <Button onClick={(e)=>{
+        setDummy(!dummy)
+        selectLikedAction(product)
+        e.stopPropagation();
+      }}>{checkPresent(likedProducts)?"Remove from wishlist":"Add to wishlist"}</Button>
+
       <Button onClick={(e)=>{
         setDummy(!dummy)
         selectCartAction(product)
         e.stopPropagation();
-      }}>{checkPresent()?"Remove from cart":"Add to cart"}</Button>
+      }}>{checkPresent(cartProducts)?"Remove from cart":"Add to cart"}</Button>
     </div>
   </Card>
 );

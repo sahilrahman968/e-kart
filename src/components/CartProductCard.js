@@ -16,19 +16,21 @@ const CartProductCard = ({selectedProducts,setSelectedProducts,url,title,descrip
     },[selectedProducts])
 
     const incrementHandler = () => {
-        if(count<=10)
-        setCount(count+1)
-        let clone = _.cloneDeep(selectedProducts)
-        clone[index].qty = count+1;
-        setSelectedProducts([...clone])
+        if(count<10){
+            setCount(count+1)
+            let clone = _.cloneDeep(selectedProducts)
+            clone[index].qty = count+1;
+            setSelectedProducts([...clone])
+        }
     }
 
     const decrementHandler = () => {
-        if(count>0)
-        setCount(count-1)
-        let clone = _.cloneDeep(selectedProducts)
-        clone[index].qty = count-1;
-        setSelectedProducts([...clone])
+        if(count>1){
+            setCount(count-1)
+            let clone = _.cloneDeep(selectedProducts)
+            clone[index].qty = count-1;
+            setSelectedProducts([...clone])
+        }
     }
 
     return(
