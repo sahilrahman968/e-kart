@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from "react"
 import {useSelector} from "react-redux"
 import CartProductCard from "../components/CartProductCard"
-import {Checkbox, Button} from 'antd';
+import {Button} from 'antd';
 import _ from "lodash"
 import empty_cart from '../assets/empty-cart.png'
 import { selectLikedAction } from "../redux/ikedProducts/likedProductActions";

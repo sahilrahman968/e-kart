@@ -21,8 +21,8 @@ export const removeFromLiked = (products) => {
 
 export const selectLikedAction = (item) => {
     let likedProducts = store.getState()?.likedProducts?.likedProducts;
-    const index = likedProducts.findIndex(e => e?.id == item?.id)
-    if(index == -1){
+    const index = likedProducts.findIndex(e => e?.id === item?.id)
+    if(index === -1){
         //likedProducts.push(item);
         likedProducts = [item , ...likedProducts];
         store.dispatch(addToLiked(likedProducts));   
