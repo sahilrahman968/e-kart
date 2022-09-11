@@ -1,9 +1,21 @@
 import { Button, Card } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { selectCartAction } from '../redux/cartProducts/cartProductActions';
 const { Meta } = Card;
 
-const UpcomingCard = ({url,title,description,price,product}) => (
+const UpcomingCard = ({url,title,description,price,product}) => {
+
+  const [dummy, setDummy] = useState(false);
+
+  const cartProducts = useSelector(state => state.cartProducts.cartProducts)
+
+  const checkPresent = () => {
+    let present = cartProducts.find( e => e.id === product.id)
+    return present;
+  }
+
+  return(
   <Card
     hoverable
     style={{
@@ -19,11 +31,13 @@ const UpcomingCard = ({url,title,description,price,product}) => (
     <div style={{display:"flex",justifyContent:"flex-end"}}>
       <Button>Add to wishlist</Button>
       <Button onClick={(e)=>{
+        setDummy(!dummy)
         selectCartAction(product)
         e.stopPropagation();
-      }}>Add to cart</Button>
+      }}>{checkPresent()?"Remove from cart":"Add to cart"}</Button>
     </div>
   </Card>
 );
+}
 
 export default UpcomingCard;

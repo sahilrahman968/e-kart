@@ -23,7 +23,8 @@ export const selectCartAction = (item) => {
     let cartProducts = store.getState()?.cartProducts?.cartProducts;
     const index = cartProducts.findIndex(e => e?.id == item?.id)
     if(index == -1){
-        cartProducts.push(item);
+        //cartProducts.push(item);
+        cartProducts = [item , ...cartProducts];
         store.dispatch(addToCart(cartProducts));   
     }
     else{

@@ -3,43 +3,73 @@ import {useSelector} from "react-redux"
 import CartProductCard from "../components/CartProductCard"
 import { selectCartAction } from '../redux/cartProducts/cartProductActions';
 import {Checkbox, Button} from 'antd';
+import PriceDetails from "../components/PriceDetails"
+import _ from "lodash"
+import empty_cart from '../assets/empty-cart.png'
+ 
+
 
 function Cart() {
     
  const [cart,setCart] = useState([]);
-    
+ const [selectedProducts,setSelectedProducts] = useState([]);   
+ const [dummy , setDummy] = useState(false);
  const cartProducts = useSelector(state => state.cartProducts.cartProducts)
 
   useEffect(()=>{
     setCart(cartProducts)
     console.log("inside useEffect")
   },[cartProducts])
-  console.log("inside cart file -->>", cartProducts)
+
+  const onChange = (e,product) => {
+    console.log(`checked = ${e.target.checked}`);
+    let clone = _.cloneDeep(selectedProducts);
+    let index = selectedProducts.findIndex( e => e.id === product.id)
+
+    if(index === -1 && e.target.checked){
+      clone.push(product);
+      clone[clone.length-1].qty = 1;
+      setSelectedProducts(clone);
+    }
+    else{
+      clone.splice(index,1);
+      setSelectedProducts(clone);
+    }
+  };
+
+  console.log("selected Products =",selectedProducts);
+
   return (
-    <div>
-      {
-        cart.length ? 
-        <div style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems : "center",
-          flexDirection : "column"
-        }}   
-    >
+    <>
+      {cart.length ? <div style={{backgroundColor:"#F5F5DC",width:"100%",height:"15%",textAlign:"center"}}>{selectedProducts.length}/{cartProducts.length} products selected</div> : ""}
+      <div  style={{
+        display: "flex",
+        justifyContent: "space-around",
+      }}>
         {
-          cart.map((product)=>{
-            return (
-            <div style={{display:"flex", justifyContent:"center",alignItems:"center"}}>
-              <Checkbox>
-                <CartProductCard url={product?.image} title={product.title} description={product?.description} price={product?.price} product={product}/>
-                <Button onClick={()=>{selectCartAction(product)}}>Remove from cart</Button> 
-              </Checkbox>
-            </div>)
-          })
+          cart.length ? 
+          <div>
+          {
+            cart.map((product)=>{
+              return (
+              <div style={{display:"flex", justifyContent:"center",alignItems:"center"}}>
+                <Checkbox onChange={(e)=>onChange(e,product)}>
+                  <div style={{display:"flex", justifyContent:"center",alignItems:"center"}}>
+                  <CartProductCard url={product?.image} title={product.title} description={product?.description} price={product?.price} product={product} selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts}/>
+                  {/*<Button onClick={()=>{selectCartAction(product); setDummy(!dummy)}}>Remove from cart</Button>*/}
+                  {/*{showQuantity() && <><Button>-</Button>{1}<Button>+</Button></>}*/}
+                  </div>
+                </Checkbox>
+              </div>)
+            })
+          }
+          </div>:<img style={{height:"100vh",width:"100vw"}} src = {empty_cart}/>
         }
-        </div>:<h1>CART EMPTY</h1>
-      }
-    </div>
+        <div>
+          {selectedProducts.length ? <PriceDetails selectedProducts={selectedProducts} /> : ""}
+        </div>
+      </div>
+    </>
   )
 }
 

@@ -23,10 +23,12 @@ const PriceFilter = ({getSelectedPriceFilter}) => {
       <Slider max={1000} range defaultValue={priceRangeFromRedux} value={priceRange} onChange={(e)=>{onChange(e)}} />
       min:<Input value={priceRange[0]} style={{width:"100px"}} type="number" 
       onChange={(e)=>{
+        if(e.target.value>=0)
         setPriceRange([e.target.value,priceRange[1]]) 
       }}/> <br/>
       max:<Input value={priceRange[1]} style={{width:"100px"}} type="number" 
       onChange={(e)=>{
+        if(e.target.value<=1000)
         setPriceRange([priceRange[0],e.target.value]) 
       }}/>
     </div>
