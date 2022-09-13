@@ -39,7 +39,7 @@ function FilterMaster() {
     let selectedCatgories = selectedCategory?.filter(e=>e.is_selected);
       if(selectedCatgories.length > 0 ){
         selectedCatgories.forEach((category)=>{
-          const data = productsFromRedux.filter(product=>product?.category===category.category_name);
+          const data = productsFromRedux.filter(product=>product?.category===category.category_name); /* get data about particular product api */
           let present = false;
           data.forEach(e => {
            present = product.find(elem=>elem?.id===e?.id)
@@ -60,7 +60,6 @@ function FilterMaster() {
       }
 
       dispatch(getFilteredProducts(product));
-      console.log("product after filter=",product)
   }
 
   const resetHandler = () => {

@@ -1,11 +1,12 @@
 import React,{useEffect,useState} from "react"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import CartProductCard from "../components/CartProductCard"
 import {Button} from 'antd';
 import _ from "lodash"
 import empty_cart from '../assets/empty-cart.png'
 import { selectLikedAction } from "../redux/ikedProducts/likedProductActions";
 import { selectCartAction } from "../redux/cartProducts/cartProductActions";
+import { setApplied } from "../redux/filter/filterActions";
  
 
 
@@ -16,12 +17,13 @@ function Wishlist() {
  const [dummy , setDummy] = useState(false);
  const likedProducts = useSelector(state => state.likedProducts.likedProducts)
 
+ const dispatch = useDispatch()
+
+
   useEffect(()=>{
     setLiked(likedProducts)
-    console.log("inside useEffect")
+    dispatch(setApplied(false))
   },[likedProducts,dummy])
-
-  console.log("selected Products =",selectedProducts);
 
   return (
     <>

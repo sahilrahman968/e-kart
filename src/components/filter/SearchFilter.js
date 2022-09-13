@@ -1,6 +1,7 @@
 import { AutoComplete } from 'antd';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { updateRecentlyViewed } from '../../redux/recentlyViewed/recentlyViewedAction';
 import ProductModal from '../ProductModal';
 
@@ -9,6 +10,7 @@ const mockVal = (str, repeat = 1) => ({
 });
 
 const SearchFilter = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector(state => state.allproducts.products)
   const [value, setValue] = useState('');
@@ -29,7 +31,8 @@ const SearchFilter = () => {
   //var selectedProduct = {}
   const onSelect = (data) => {
     let selectedProduct = products.filter( e => e.title.toLowerCase().includes(data.toLowerCase()))[0];
-    setShowModal(true);
+    // setShowModal(true);
+    navigate("/product", { state:{productId : selectedProduct?.id} });
     console.log('onSelect', selectedProduct);
     setSelectedProduct(selectedProduct)
     addToRecentlyViewed(selectedProduct)

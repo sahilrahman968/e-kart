@@ -12,7 +12,6 @@ const PriceFilter = ({getSelectedPriceFilter}) => {
   },[priceRangeFromRedux])
   
   const onChange = (priceRange) => {
-    console.log("e->",priceRange)
     setPriceRange(priceRange);
   };
 

@@ -1,11 +1,12 @@
 import React,{useEffect,useState} from "react"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import CartProductCard from "../components/CartProductCard"
 import { selectCartAction } from '../redux/cartProducts/cartProductActions';
 import {Checkbox, Button} from 'antd';
 import PriceDetails from "../components/PriceDetails"
 import _ from "lodash"
 import empty_cart from '../assets/empty-cart.png'
+import { setApplied } from "../redux/filter/filterActions";
  
 
 
@@ -16,13 +17,14 @@ function Cart() {
  const [dummy , setDummy] = useState(false);
  const cartProducts = useSelector(state => state.cartProducts.cartProducts)
 
+ const dispatch = useDispatch()
+
   useEffect(()=>{
     setCart(cartProducts)
-    console.log("inside useEffect")
+    dispatch(setApplied(false))
   },[cartProducts])
 
   const onChange = (e,product) => {
-    console.log(`checked = ${e.target.checked}`);
     let clone = _.cloneDeep(selectedProducts);
     let index = selectedProducts.findIndex( e => e.id === product.id)
 
@@ -37,7 +39,6 @@ function Cart() {
     }
   };
 
-  console.log("selected Products =",selectedProducts);
 
   return (
     <>

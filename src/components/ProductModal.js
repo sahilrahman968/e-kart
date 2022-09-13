@@ -11,8 +11,6 @@ const ProductModal = ({setShowModal,showmodal,product}) => {
   const cartProducts = useSelector(state => state.cartProducts.cartProducts)
   const likedProducts = useSelector(state => state.likedProducts.likedProducts)
 
-  console.log("product=",product)
-
   useEffect(()=>{showModal()},[showmodal])
 
   const showModal = () => {
@@ -37,7 +35,7 @@ const ProductModal = ({setShowModal,showmodal,product}) => {
 
   return (
     <>
-      <Modal  open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal  open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
         <div style={{display:"flex"}}>
             <div>
                 <img style={{height:"400px",width:"300px",padding:"10px"}} src={product?.image} alt="product-image"/>

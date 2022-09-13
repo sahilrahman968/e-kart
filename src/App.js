@@ -12,6 +12,7 @@ import SearchFilter from './components/filter/SearchFilter';
 import RecentlyViewed from './components/RecentlyViewed';
 import Navbar from './components/Navbar';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProductPage from './screens/ProductPage';
 
 function App() {
   const dispatch = useDispatch()
@@ -23,7 +24,6 @@ function App() {
     const helperFunction = async () => {
       try{
         const res = await getAllCategories();
-        console.log(res.data);
         res?.data.forEach((item)=>{
             categories.push({category_name: item, is_selected : false})
         })
@@ -45,7 +45,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/cart" element={<Cart/>}/> 
-            <Route path="/wishlist" element={<Wishlist/>}/> 
+            <Route path="/wishlist" element={<Wishlist/>}/>
+            <Route path="/product" element={<ProductPage/>}/> 
           </Routes>
         </div>
      </BrowserRouter>  

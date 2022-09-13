@@ -9,8 +9,10 @@ import ProductModal from "../components/ProductModal"
 import { updateRecentlyViewed } from "../redux/recentlyViewed/recentlyViewedAction"
 import FilterMaster from "../components/filter/FilterMaster"
 import RecentlyViewed from "../components/RecentlyViewed"
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [products,setProducts] = useState([]);
   const [showModal,setShowModal] = useState(false)
@@ -89,14 +91,14 @@ function Home() {
         <div>
           {
             productsState.loading ? <div style={{display:"flex",justifyContent:"center",margin:"20px"}}><Spin/></div> :
-            products.length ? 
-            <div style={{
-              display: "flex",
-              justifyContent: "space-around",
-              flexWrap: "wrap"
-            }}
-            
-        >
+            products?.length ? 
+            <div 
+              style={{
+                      display: "flex",
+                      justifyContent: "space-around",
+                      flexWrap: "wrap"
+                    }}
+            >
             {
               products.map((product)=>{
                 return <>
@@ -104,6 +106,7 @@ function Home() {
                     setShowModal(true);
                     setSelectedProduct(product) 
                     addToRecentlyViewed(product);
+                    navigate("/product", { state:{productId : product?.id} });
                     }}>
                     <ProductCard url={product?.image} title={product.title} description={product?.description} price={product?.price} product={product}/>
                   </div>
@@ -112,9 +115,9 @@ function Home() {
             }
             </div>:"SOMETHING WENT WRONG"
           }
-          {
+          {/* {
             showModal&& <ProductModal product={selectedProduct} setShowModal={setShowModal} showmodal={showModal}/>
-          } 
+          } */} 
         </div>
     </div>
   )
