@@ -10,7 +10,7 @@ import { setApplied } from "../redux/filter/filterActions";
  
 
 
-function Cart() {
+function Cart({language}) {
     
  const [cart,setCart] = useState([]);
  const [selectedProducts,setSelectedProducts] = useState([]);   
@@ -39,10 +39,12 @@ function Cart() {
     }
   };
 
+  console.log("cart")
+
 
   return (
     <>
-      {cart.length ? <div style={{backgroundColor:"#F5F5DC",width:"100%",height:"15%",textAlign:"center"}}>{selectedProducts.length}/{cartProducts.length} products selected</div> : ""}
+      {cart.length ? <div style={{backgroundColor:"#F5F5DC",width:"100%",height:"15%",textAlign:"center"}}>{language==="hindi"?`${cartProducts.length} में से ${selectedProducts.length} उत्पाद चुने गए`:`${selectedProducts.length}/${cartProducts.length} products selected`}</div> : ""}
       <div  style={{
         display: "flex",
         justifyContent: "space-around",
@@ -67,7 +69,7 @@ function Cart() {
           </div>:<img style={{height:"100vh",width:"100vw"}} src = {empty_cart}/>
         }
         <div>
-          {selectedProducts.length ? <PriceDetails selectedProducts={selectedProducts} /> : ""}
+          {selectedProducts.length ? <PriceDetails language={language} selectedProducts={selectedProducts} /> : ""}
         </div>
       </div>
     </>

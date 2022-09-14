@@ -8,17 +8,13 @@ function CategoryFilter({getSelectedCategoryFilter}) {
     const categoriesFromRedux = useSelector(state=>state.filter.category)
     const [categories , setCategories] = useState([]);
     
-    console.log("categoriesFromRedux=",categoriesFromRedux);
-    console.log("categoriesFromRedux",categories);
   
     useEffect(()=>{
         setCategories([...categoriesFromRedux])
     },[categoriesFromRedux])
 
     const onChange = (e,item) => {
-        console.log(`checked = ${e.target.checked}`,item);
         let categoriesClone = _.cloneDeep(categories)
-        console.log("categoriesClone=",categoriesClone)
         const index = categoriesClone.findIndex(e=>e?.category_name === item.category_name)
         if(index > -1){
             categoriesClone[index].is_selected = e.target.checked

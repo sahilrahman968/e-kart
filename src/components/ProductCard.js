@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCartAction } from '../redux/cartProducts/cartProductActions';
 import { selectLikedAction } from '../redux/ikedProducts/likedProductActions';
+import { strings } from '../constants/stringConstants';
+
 const { Meta } = Card;
 
-const UpcomingCard = ({url,title,description,price,product}) => {
+const UpcomingCard = ({url,title,description,price,product,language}) => {
 
   const [dummy, setDummy] = useState(false);
 
@@ -37,13 +39,13 @@ const UpcomingCard = ({url,title,description,price,product}) => {
         setDummy(!dummy)
         selectLikedAction(product)
         e.stopPropagation();
-      }}>{checkPresent(likedProducts)?"Remove from wishlist":"Add to wishlist"}</Button>
+      }}>{checkPresent(likedProducts)?`${language==="english"?strings.REMOVE_FROM_WISHLIST_EN:strings.REMOVE_FROM_WISHLIST_HI}`:`${language==="english"?strings.ADD_TO_WISHLIST_EN:strings.ADD_TO_WISHLIST_HI}`}</Button>
 
       <Button onClick={(e)=>{
         setDummy(!dummy)
         selectCartAction(product)
         e.stopPropagation();
-      }}>{checkPresent(cartProducts)?"Remove from cart":"Add to cart"}</Button>
+      }}>{checkPresent(cartProducts)?`${language==="english"?strings.REMOVE_FROM_CART_EN:strings.REMOVE_FROM_CART_HI}`:`${language==="english"?strings.ADD_TO_CART_EN:strings.ADD_TO_CART_HI}`}</Button>
     </div>
   </Card>
 );

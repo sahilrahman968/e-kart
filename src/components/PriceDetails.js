@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {Checkbox, Button} from 'antd';
+import { strings } from '../constants/stringConstants';
 
-function PriceDetails({selectedProducts}) {
+function PriceDetails({selectedProducts,language}) {
  const [total , setTotal] = useState(0);
   useEffect(()=>{
     let total = 0;
@@ -12,7 +13,7 @@ function PriceDetails({selectedProducts}) {
   },[selectedProducts])  
   return (
     <div>
-        <h1>PRICE DETAILS</h1>
+        <h1>{language==="english"?strings.PAYMENT_DETAILS_EN:strings.PAYMENT_DETAILS_HI}</h1>
         <hr/>
         <div>
             {
@@ -25,8 +26,8 @@ function PriceDetails({selectedProducts}) {
             }
         </div>
         <hr/>
-        <h2>Grand Total : ${total}</h2>
-        <Button>Proceed to buy</Button>
+        <h2>{language==="english"?strings.TOTAL_EN:strings.TOTAL_HI} : ${total}</h2>
+        <Button>{language==="english"?strings.PROCEED_TO_BUY_EN:strings.PROCEED_TO_BUY_HI}</Button>
     </div>
   )
 }

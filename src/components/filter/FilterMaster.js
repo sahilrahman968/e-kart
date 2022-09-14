@@ -7,8 +7,9 @@ import _ from "lodash"
 import PriceFilter from './PriceFilter';
 import {Button} from "antd"
 import { getFilteredProducts } from '../../redux/allProducts/allProductActions';
+import { strings } from '../../constants/stringConstants';
 
-function FilterMaster() {
+function FilterMaster({language}) {
   const productsFromRedux = useSelector(state => state.allproducts.products)
   const categoriesFromRedux = useSelector(state=>state.filter.category)
   const [selectedCategory,setSelectedCategory] = useState(categoriesFromRedux);
@@ -93,8 +94,8 @@ function FilterMaster() {
           }
         </div>
       </div>
-      <Button style={{marginLeft:"20px"}} onClick={()=>{applyHandler()}}>Apply</Button>
-      <Button style={{marginLeft:"20px"}} onClick={()=>{resetHandler()}}>Reset</Button>
+      <Button style={{marginLeft:"20px"}} onClick={()=>{applyHandler()}}>{language==="english"?strings.APPLY_EN:strings.APPLY_HI}</Button>
+      <Button style={{marginLeft:"20px"}} onClick={()=>{resetHandler()}}>{language==="english"?strings.RESET_EN:strings.RESET_HI}</Button>
     </div>
   )
 }

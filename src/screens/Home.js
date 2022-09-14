@@ -4,19 +4,17 @@ import {useDispatch,useSelector} from "react-redux"
 import {getAllProductsRequest,getAllProductsSuccess,getAllProductsFailure} from "../redux/allProducts/allProductActions"
 import ProductCard from "../components/ProductCard"
 import {Spin} from "antd"
-import _ from "lodash"
-import ProductModal from "../components/ProductModal"
 import { updateRecentlyViewed } from "../redux/recentlyViewed/recentlyViewedAction"
 import FilterMaster from "../components/filter/FilterMaster"
 import RecentlyViewed from "../components/RecentlyViewed"
 import { useNavigate } from "react-router-dom";
+import {strings} from "../constants/stringConstants"
 
-function Home() {
+
+function Home({language}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [products,setProducts] = useState([]);
-  const [showModal,setShowModal] = useState(false)
-  const [selectedProduct,setSelectedProduct] = useState({})
   
   /* useEffect(()=>{
     const res = getAllProducts(); //returns a promise
@@ -48,6 +46,7 @@ function Home() {
   
 
   useEffect(()=>{dispatch(getProducts())},[]);
+  
   useEffect(()=>{
     if(filterState.isApplied)
     setProducts(productsState.filteredProducts)
@@ -78,19 +77,19 @@ function Home() {
   return (
     <div style={{display:"flex",justifyContent:"space-around"}}>
         <div style={{width:"20vw"}}>
-          <h2 style={{margin:"10px",marginTop:"20px"}}>Apply Filter</h2>
-          <FilterMaster/>
+        {products?.length?<><h2 style={{margin:"10px",marginTop:"20px"}}>{language==="english"?strings.APPLY_FILTER_EN:strings.APPLY_FILTER_HI}</h2>
+          <FilterMaster language={language}/></>:<></>}
           {
             recentlyViewed?.length > 0 &&
             <div style={{margin:"20px"}}>
-              <h2 style={{margin:"10px",marginTop:"20px"}}>Recently Viewed</h2>
+              <h2 style={{margin:"10px",marginTop:"20px"}}>{language==="english"?strings.RECENTLY_VIEWED_EN:strings.RECENTLY_VIEWED_HI}</h2>
               <RecentlyViewed/>
             </div>
           }
         </div>  
         <div>
           {
-            productsState.loading ? <div style={{display:"flex",justifyContent:"center",margin:"20px"}}><Spin/></div> :
+            productsState.loading ? <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}><Spin/></div> :
             products?.length ? 
             <div 
               style={{
@@ -103,21 +102,16 @@ function Home() {
               products.map((product)=>{
                 return <>
                   <div onClick={()=>{
-                    setShowModal(true);
-                    setSelectedProduct(product) 
                     addToRecentlyViewed(product);
-                    navigate("/product", { state:{productId : product?.id} });
+                    navigate(`/product`, { state:{productId : product?.id} });
                     }}>
-                    <ProductCard url={product?.image} title={product.title} description={product?.description} price={product?.price} product={product}/>
+                    <ProductCard url={product?.image} title={product.title} description={product?.description} price={product?.price} product={product} language={language}/>
                   </div>
                 </>
               })
             }
             </div>:"SOMETHING WENT WRONG"
           }
-          {/* {
-            showModal&& <ProductModal product={selectedProduct} setShowModal={setShowModal} showmodal={showModal}/>
-          } */} 
         </div>
     </div>
   )

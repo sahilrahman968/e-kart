@@ -3,38 +3,25 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { updateRecentlyViewed } from '../../redux/recentlyViewed/recentlyViewedAction';
-import ProductModal from '../ProductModal';
-
-const mockVal = (str, repeat = 1) => ({
-  value: str.repeat(repeat),
-});
 
 const SearchFilter = () => {
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector(state => state.allproducts.products)
   const [value, setValue] = useState('');
   const [options, setOptions] = useState([]);
-  const [showModal,setShowModal] = useState(false)
-  const [selectedProduct , setSelectedProduct] = useState({})
-//   const [value,setValue] = useState("")/*  */
   const recentlyViewed = useSelector(state => state.recentlyViewed.products);
 
 
   const onSearch = (searchText) => {
     let options = products.filter( e => e.title.toLowerCase().includes(searchText.toLowerCase()));
     let optionsText = options.map(e=>({value:e.title}));
-    console.log('options', options);
-    console.log('options', optionsText);
     setOptions([...optionsText]);
   };
-  //var selectedProduct = {}
   const onSelect = (data) => {
     let selectedProduct = products.filter( e => e.title.toLowerCase().includes(data.toLowerCase()))[0];
-    // setShowModal(true);
     navigate("/product", { state:{productId : selectedProduct?.id} });
-    console.log('onSelect', selectedProduct);
-    setSelectedProduct(selectedProduct)
     addToRecentlyViewed(selectedProduct)
     setValue("")
 };
@@ -43,7 +30,6 @@ const SearchFilter = () => {
     setValue(data);
   };
 
-  console.log('onSelect1', selectedProduct);
 
   const addToRecentlyViewed = (product) => {
     let present = recentlyViewed.find(e => e.id === product.id)
@@ -51,7 +37,6 @@ const SearchFilter = () => {
       dispatch(updateRecentlyViewed([product,...recentlyViewed]))
     }  
   }
-
 
   return (
     <>
@@ -66,9 +51,6 @@ const SearchFilter = () => {
         placeholder="search for products"
         value={value}
       />
-      {
-        showModal&& <ProductModal product={selectedProduct} setShowModal={setShowModal} showmodal={showModal}/>
-      }
     </>
   );
 };
