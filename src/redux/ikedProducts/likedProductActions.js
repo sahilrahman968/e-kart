@@ -1,4 +1,4 @@
-import store from "../store"
+import {store} from "../store"
 
 export const ADD_TO_LIKED = "ADD_TO_LIKED"
 export const REMOVE_FROM_LIKED = "REMOVE_FROM_LIKED"

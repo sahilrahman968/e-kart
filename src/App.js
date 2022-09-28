@@ -52,7 +52,7 @@ function App() {
           <Navbar language={language}/>
         </div>
           <div style={{display:"flex",justifyContent:"flex-end",margin:"10px"}}>
-            <Switch defaultChecked onChange={onChange}/><h3>Hindi</h3>
+            <Switch defaultChecked={false} onChange={onChange}/><h3>Hindi</h3>
           </div>
           <Routes>
             <Route path="/" element={<Home language={language}/>}/>

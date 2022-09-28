@@ -26,7 +26,7 @@ function PriceDetails({selectedProducts,language}) {
             }
         </div>
         <hr/>
-        <h2>{language==="english"?strings.TOTAL_EN:strings.TOTAL_HI} : ${total}</h2>
+        <h2>{language==="english"?strings.TOTAL_EN:strings.TOTAL_HI} : ${Number(total).toFixed(2)}</h2>
         <Button>{language==="english"?strings.PROCEED_TO_BUY_EN:strings.PROCEED_TO_BUY_HI}</Button>
     </div>
   )

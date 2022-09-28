@@ -14,7 +14,6 @@ function Cart({language}) {
     
  const [cart,setCart] = useState([]);
  const [selectedProducts,setSelectedProducts] = useState([]);   
- const [dummy , setDummy] = useState(false);
  const cartProducts = useSelector(state => state.cartProducts.cartProducts)
 
  const dispatch = useDispatch()
@@ -25,6 +24,7 @@ function Cart({language}) {
   },[cartProducts])
 
   const onChange = (e,product) => {
+    e.stopPropagation();
     let clone = _.cloneDeep(selectedProducts);
     let index = selectedProducts.findIndex( e => e.id === product.id)
 
@@ -59,8 +59,6 @@ function Cart({language}) {
                 <Checkbox onChange={(e)=>onChange(e,product)}>
                   <div style={{display:"flex", justifyContent:"center",alignItems:"center"}}>
                   <CartProductCard url={product?.image} title={product.title} description={product?.description} price={product?.price} product={product} selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts}/>
-                  {/*<Button onClick={()=>{selectCartAction(product); setDummy(!dummy)}}>Remove from cart</Button>*/}
-                  {/*{showQuantity() && <><Button>-</Button>{1}<Button>+</Button></>}*/}
                   </div>
                 </Checkbox>
               </div>)
