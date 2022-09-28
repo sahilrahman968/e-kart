@@ -38,36 +38,80 @@ const checkPresent = (a) => {
 console.log("product",language)
 
   return (
-    <div style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column", height:"100vh"}}>
-        {
-            !product ? <Spin/> :
-            <> 
-            <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-              <div>
-                <img style={{heighyt:"600px",width:"400px"}} src={product?.image} alt="product-image"/>
-              </div>
-              <div>
-                <h1>{product.title}</h1>
-                <p>{product.description}</p>
-                <h2>${product.price}</h2>
-              </div>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        height: '100vh',
+      }}
+    >
+      {!product ? (
+        <Spin />
+      ) : (
+        <>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <div>
+              <img
+                style={{ heighyt: '600px', width: '400px' }}
+                src={product?.image}
+                alt='product-image'
+              />
             </div>
-            <Button onClick={(e)=>{
+            <div>
+              <h1>{product.title}</h1>
+              <p>{product.description}</p>
+              <h2>${product.price}</h2>
+            </div>
+          </div>
+          <Button
+            onClick={(e) => {
               setDummy(!dummy)
               selectLikedAction(product)
-              e.stopPropagation();
-              }}>{checkPresent(likedProducts)?`${language==="english"?strings.REMOVE_FROM_WISHLIST_EN:strings.REMOVE_FROM_WISHLIST_HI}`:`${language==="english"?strings.ADD_TO_WISHLIST_EN:strings.ADD_TO_WISHLIST_HI}`}
-            </Button>
+              e.stopPropagation()
+            }}
+          >
+            {checkPresent(likedProducts)
+              ? `${
+                  language === 'english'
+                    ? strings.REMOVE_FROM_WISHLIST_EN
+                    : strings.REMOVE_FROM_WISHLIST_HI
+                }`
+              : `${
+                  language === 'english'
+                    ? strings.ADD_TO_WISHLIST_EN
+                    : strings.ADD_TO_WISHLIST_HI
+                }`}
+          </Button>
 
-            <Button onClick={(e)=>{
+          <Button
+            onClick={(e) => {
               setDummy(!dummy)
               selectCartAction(product)
-              e.stopPropagation();
-              }}>{checkPresent(likedProducts)?`${language==="english"?strings.REMOVE_FROM_CART_EN:strings.REMOVE_FROM_CART_HI}`:`${language==="english"?strings.ADD_TO_CART_EN:strings.ADD_TO_CART_HI}`}
-            </Button>
-            </>
-        }
-            
+              e.stopPropagation()
+            }}
+          >
+            {checkPresent(cartProducts)
+              ? `${
+                  language === 'english'
+                    ? strings.REMOVE_FROM_CART_EN
+                    : strings.REMOVE_FROM_CART_HI
+                }`
+              : `${
+                  language === 'english'
+                    ? strings.ADD_TO_CART_EN
+                    : strings.ADD_TO_CART_HI
+                }`}
+          </Button>
+        </>
+      )}
     </div>
   )
 }
