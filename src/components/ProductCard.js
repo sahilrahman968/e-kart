@@ -4,6 +4,12 @@ import { useSelector } from 'react-redux';
 import { selectCartAction } from '../redux/cartProducts/cartProductActions';
 import { selectLikedAction } from '../redux/ikedProducts/likedProductActions';
 import { strings } from '../constants/stringConstants';
+import like from "../assets/like.png";
+import unlike from "../assets/unlike.png";
+import kart from "../assets/kart.png";
+import unkart from "../assets/unkart.png";
+
+
 
 const { Meta } = Card;
 
@@ -39,13 +45,13 @@ const UpcomingCard = ({url,title,description,price,product,language}) => {
         setDummy(!dummy)
         selectLikedAction(product)
         e.stopPropagation();
-      }}>{checkPresent(likedProducts)?`${language==="english"?strings.REMOVE_FROM_WISHLIST_EN:strings.REMOVE_FROM_WISHLIST_HI}`:`${language==="english"?strings.ADD_TO_WISHLIST_EN:strings.ADD_TO_WISHLIST_HI}`}</Button>
+      }}>{checkPresent(likedProducts)?<img  style={{height:"20px",width:"20px"}} src={like}/>:<img style={{height:"20px",width:"20px"}} src={unlike}/>}</Button>
 
       <Button onClick={(e)=>{
         setDummy(!dummy)
         selectCartAction(product)
         e.stopPropagation();
-      }}>{checkPresent(cartProducts)?`${language==="english"?strings.REMOVE_FROM_CART_EN:strings.REMOVE_FROM_CART_HI}`:`${language==="english"?strings.ADD_TO_CART_EN:strings.ADD_TO_CART_HI}`}</Button>
+      }}>{checkPresent(cartProducts)?<img  style={{height:"20px",width:"20px"}} src={kart}/>:<img style={{height:"20px",width:"20px"}} src={unkart}/>}</Button>
     </div>
   </Card>
 );
